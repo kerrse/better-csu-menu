@@ -45,6 +45,7 @@ for ($i = 0; $i < count($url); $i++) {
     $location = $diningList[$i][0];
     $menuType = $diningList[$i][1];
     $filePath = "menus/$location/$menuType.json";
+    echo "Attempting to write to: $filePath <br>";
 
     // in the rare event that the json files aren't on the server
     $directory = dirname($filePath);
@@ -53,6 +54,7 @@ for ($i = 0; $i < count($url); $i++) {
     }
 
     file_put_contents($filePath, $apiResponse);
+    echo "Success! <br><br>";
 }
 
 ?>
