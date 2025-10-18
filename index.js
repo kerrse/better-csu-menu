@@ -13,21 +13,62 @@ const filePath = [
     "menus/the-foundry/dinner.json"
 ];
 
-let braidenBreakfastObj;
-let braidenLunchObj;
-let braidenDinnerObj;
-let durrellBreakfastObj;
-let durrellLunchObj;
-let durrellDinnerObj;
-let ramsHornBreakfastObj;
-let ramsHornLunchObj;
-let ramsHornDinnerObj;
-let theFoundryBreakfastObj;
-let theFoundryLunchObj;
-let theFoundryDinnerObj;
-
-async function getText(file, obj) {
+async function getJson(file) {
     let f = await fetch(file);
-    let fileRead = await f.text();
-    obj = JSON.parse(fileRead);
+    
+    return f.json();
 }
+
+async function storeDiningVariables() {
+    const promises = filePath.map(paths => getJson(paths));
+    const diningObjects = await Promise.all(promises);
+    const allMenus = {};
+
+    for (let i = 0; i < filePath.length; i++) {
+        const parts = filePath[i].split("/");
+        const diningCenter = parts[1];
+        const menuType = parts[2].replace(".json", "");
+
+        if (!allMenus[diningCenter]) {
+            allMenus[diningCenter] = {};
+        }
+
+        allMenus[diningCenter][menuType] = diningObjects[i];
+    }
+
+    return allMenus;
+}
+
+const diningBtns = document.getElementsByClassName("btns");
+const braidenModal = document.getElementById("braiden-modal");
+const durrellModal = document.getElementById("durrell-modal");
+const ramsHornModal = document.getElementById("rams-horn-modal");
+const theFoundryModal = document.getElementById("the-foundry-modal");
+
+function configEventListeners(menus) {
+    let today = new Date();
+    today = today.getDay();
+
+    let breakfast = {};
+    let lunch = {};
+    let dinner = {};
+
+    for (let btn of diningBtns) {
+        btn.addEventListener("click", function(e) {
+            let name = e.target.parentElement.parentElement.getAttribute("id");
+            breakfast = menus[name]["breakfast"]["days"][today];
+            lunch = menus[name]["lunch"]["days"][today];
+            dinner = menus[name]["dinner"]["days"][today];
+        });
+    }
+}
+
+async function initialize() {
+    console.log("Loading menu data...");
+    const loadedMenus = await storeDiningVariables();
+    console.log("Menu data was successfully loaded!");
+
+    configEventListeners(loadedMenus);
+}
+
+initialize();
