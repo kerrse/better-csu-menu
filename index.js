@@ -55,10 +55,11 @@ function configEventListeners(menus) {
 
     for (let btn of diningBtns) {
         btn.addEventListener("click", function(e) {
-            let name = e.target.parentElement.parentElement.getAttribute("id");
+            let name = e.currentTarget.parentElement.parentElement.getAttribute("id");
             breakfast = menus[name]["breakfast"]["days"][today];
             lunch = menus[name]["lunch"]["days"][today];
             dinner = menus[name]["dinner"]["days"][today];
+            // console.log(breakfast, lunch, dinner);
         });
     }
 }

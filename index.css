@@ -1,0 +1,121 @@
+/* --- Global Styles --- */
+* {
+    /* Box Model */
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    /* Layout & Positioning */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    /* Box Model */
+    min-height: 100vh;
+    padding: 20px;
+    
+    /* Typography */
+    font-family: system-ui, sans-serif;
+
+    /* Visual & Decorative */
+    background-color: #F4F4F9;
+}
+
+/* --- Element Styles --- */
+#title {
+    /* Typography */
+    text-align: center;
+}
+
+#container {
+    /* Layout & Positioning */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+
+    /* Box Model */
+    max-width: 900px;
+}
+
+.dining-centers {
+    /* Layout & Positioning */
+    display: flex;
+    flex-direction: column;
+
+    /* Box Model */
+    border: 1px grey solid;
+    border-radius: 12px;
+    padding: 25px;
+    
+    /* Visual & Decorative */
+    background-color: #FFFFFF;
+    box-shadow: 12px 12px rgba(0, 0, 0, 0.75);
+}
+
+.names {
+    /* Box Model */
+    margin-bottom: 15px;
+    border-bottom: 1px black solid;
+
+    /* Typography */
+    font-size: 1.75em;
+    font-weight: bold;
+}
+
+.btns-containers {
+    /* Layout & Positioning */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btns {
+    /* Layout & Positioning */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* Box Model */
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    border: 1px solid #E0E0E0;
+    
+    /* Animation & Miscellaneous */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btns:hover {
+    /* Typography */
+    color: white;
+
+    /* Visual & Decorative */
+    background-color: #007BFF;
+    border-color: #007BFF;
+
+    /* Animation & Miscellaneous */
+    transform: translateY(-3px);
+}
+
+.dining-labels {
+    /* Typography */
+    font-size: 0.75em;
+}
+
+.dining-icons {
+    /* Typography */
+    font-size: 3.25em;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 765px) {
+    #container {
+        /* Layout & Positioning */
+        grid-template-columns: 1fr;
+    }
+}
