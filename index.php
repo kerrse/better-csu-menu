@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Better CSU Menu</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="modal.css">
     <script src="index.js" defer></script>
 </head>
 <body>
@@ -79,11 +80,13 @@
             </div>
         </div>
     </div>
-
-    <div id="braiden-modal"></div>
-    <div id="durrell-modal"></div>
-    <div id="rams-horn-modal"></div>
-    <div id="the-foundry-modal"></div>
+    <div id="menu-modal" style="display:none;">
+        <div id="menu-modal-header">
+            <h1 style="display:inline;">Menu</h1>
+            <button id="close-modal-btn">&times;</button>
+        </div>
+        <div id="menu-container"></div>
+    </div>
+    <div id="overlay"></div>
 </body>
 </html>
-

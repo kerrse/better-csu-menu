@@ -40,10 +40,10 @@ async function storeDiningVariables() {
 }
 
 const diningBtns = document.getElementsByClassName("btns");
-const braidenModal = document.getElementById("braiden-modal");
-const durrellModal = document.getElementById("durrell-modal");
-const ramsHornModal = document.getElementById("rams-horn-modal");
-const theFoundryModal = document.getElementById("the-foundry-modal");
+const menuModal = document.getElementById("menu-modal");
+const menuContainer = document.getElementById("menu-container");
+const closeModalBtn = document.getElementById("close-modal-btn");
+const overlay = document.getElementById("overlay");
 
 function configEventListeners(menus) {
     let today = new Date();
@@ -56,11 +56,93 @@ function configEventListeners(menus) {
     for (let btn of diningBtns) {
         btn.addEventListener("click", function(e) {
             let name = e.currentTarget.parentElement.parentElement.getAttribute("id");
-            breakfast = menus[name]["breakfast"]["days"][today];
-            lunch = menus[name]["lunch"]["days"][today];
-            dinner = menus[name]["dinner"]["days"][today];
-            // console.log(breakfast, lunch, dinner);
+            let meal = e.currentTarget.getAttribute("class").split(" ")[0];
+            let menuType = menus[name][meal]["days"][today];
+            let menuItemAmount = menus[name][meal]["days"][today]["menu_items"].length;
+            
+            menuModal.style.display = "flex";
+            overlay.style.display = "block";
+            populateMenu(menuType, menuItemAmount);
         });
+    }
+
+    closeModalBtn.addEventListener("click", function() {
+        menuModal.style.display = "none";
+        overlay.style.display = "none";
+    });
+}
+
+/* 
+Properties of menuType
+----------------------
+.menu_items -> accesses the list of food
+.menu_items[#] -> # is any integer that is the index of menu_items
+.menu_items[#].serving_size_amount -> serving amount as an integer
+.menu_items[#].serving_size_unit -> serving unit as a string
+.menu_items[#].food.ingredients -> list of ingredients as a string
+.menu_items[#].food.name -> name of the food
+
+.menu_items[#].food.rounded_nutrition_info -> nutrition info
+.menu_items[#].food.rounded_nutrition_info.calories -> calories as an integer
+.menu_items[#].food.rounded_nutrition_info.g_carbs -> total carbohydrate as an integer
+.menu_items[#].food.rounded_nutrition_info.g_fat -> total fat as an integer
+.menu_items[#].food.rounded_nutrition_info.g_protein -> protein as an integer
+*/
+
+function createMenuItem(menuType, index) {
+    let itemDiv = document.createElement("DIV");
+    itemDiv.setAttribute("class", "menu-items");
+
+    let itemName = document.createElement("SPAN");
+    itemName.setAttribute("class", "item-names");
+    itemName.innerText = menuType.menu_items[index].food.name;
+    itemDiv.append(itemName);
+
+    let itemServingInfo = document.createElement("SPAN");
+    itemServingInfo.setAttribute("class", "item-servings");
+    let servingAmount = menuType.menu_items[index].serving_size_amount;
+    let servingUnit = menuType.menu_items[index].serving_size_unit; 
+    itemServingInfo.innerText = `${servingAmount} ${servingUnit}`;
+    itemDiv.append(itemServingInfo);
+
+    let itemTable = document.createElement("TABLE");
+    let nutritionInfo = menuType.menu_items[index].food.rounded_nutrition_info;
+    
+    itemTable.innerHTML = `
+        <tr>
+            <th></th>
+            <th>Fat</th>
+            <th>Carbs</th>
+            <th>Protein</th>
+        </tr>
+        <tr>
+            <td>${nutritionInfo.calories} Cal</td>
+            <td>${nutritionInfo.g_fat}g</td>
+            <td>${nutritionInfo.g_carbs}g</td>
+            <td>${nutritionInfo.g_protein}g</td>
+        </tr>
+    `
+
+    itemDiv.append(itemTable);
+
+    return itemDiv;
+}
+
+function populateMenu(menuType, menuItemAmount) {
+    // clears menu container before repopulating
+    menuContainer.innerHTML = "";
+    // prevents default scrollbar position memory behavior
+    menuContainer.scrollTop = 0;
+    console.log(menuItemAmount);
+    for (let i = 0; i < menuItemAmount; i++) {
+        // some objects are just labels and not actually items
+        if (menuType.menu_items[i].food == null) {
+            console.log("null");
+            continue;
+        }
+
+        let newMenuItem = createMenuItem(menuType, i);
+        menuContainer.append(newMenuItem);
     }
 }
 
