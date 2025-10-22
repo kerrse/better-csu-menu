@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="modal.css">
     <script src="index.js" defer></script>
+    <script src="search.js" defer></script>
 </head>
 <body>
     <h1 id="title">Better CSU Menu</h1>
@@ -83,6 +84,7 @@
     <div id="menu-modal" style="display:none;">
         <div id="menu-modal-header">
             <h1 style="display:inline;">Menu</h1>
+            <input type="text" id="search-bar">
             <button id="close-modal-btn">&times;</button>
         </div>
         <div id="menu-container"></div>
