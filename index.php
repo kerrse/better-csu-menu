@@ -83,8 +83,8 @@
     </div>
     <div id="menu-modal" style="display:none;">
         <div id="menu-modal-header">
-            <h1 style="display:inline;">Menu</h1>
-            <input type="text" id="search-bar">
+            <h1>Menu</h1>
+            <input type="text" id="search-bar" placeholder="Search">
             <button id="close-modal-btn">&times;</button>
         </div>
         <div id="menu-container"></div>

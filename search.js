@@ -1,20 +1,17 @@
 const searchBar = document.getElementById("search-bar");
-let query = [];
+let menuItemDivs = document.getElementsByClassName("menu-items");
 
-searchBar.addEventListener("keyup", function(e) {
-    if (e.key == "Backspace") {
-        query.pop();
+searchBar.addEventListener("input", function(e) {
+    let query = searchBar.value.toLowerCase();
+
+    for (let div of menuItemDivs) {
+        // children[0] is the span element containing the name of the food
+        let foodName = div.children[0].innerText.toLowerCase();
+
+        if (!foodName.includes(query)) {
+            div.style.display = "none";
+        } else {
+            div.style.display = "";
+        }
     }
-
-    if (e.key != "Backspace") {
-        query.push(e.key);
-    }
-
-    let str = "";
-
-    for (let char of query) {
-        str += char;
-    }
-
-    console.log(str);
 });
