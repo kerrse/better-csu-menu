@@ -53,10 +53,7 @@
 
 #search-bar {
     /* Layout & Positioning */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    flex-grow: 0;     
+    flex-grow: 1;     
     
     /* Box Model */
     width: 50%; 

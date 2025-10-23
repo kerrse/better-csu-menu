@@ -116,10 +116,10 @@ function createMenuItem(menuType, index) {
             <th>Protein</th>
         </tr>
         <tr>
-            <td>${nutritionInfo.calories} Cal</td>
-            <td>${nutritionInfo.g_fat}g</td>
-            <td>${nutritionInfo.g_carbs}g</td>
-            <td>${nutritionInfo.g_protein}g</td>
+            <td data-macro="calories">${nutritionInfo.calories} Cal</td>
+            <td data-macro="fat">${nutritionInfo.g_fat}g</td>
+            <td data-macro="carbs">${nutritionInfo.g_carbs}g</td>
+            <td data-macro="protein">${nutritionInfo.g_protein}g</td>
         </tr>
     `
 

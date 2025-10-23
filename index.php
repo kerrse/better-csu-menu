@@ -85,6 +85,13 @@
         <div id="menu-modal-header">
             <h1>Menu</h1>
             <input type="text" id="search-bar" placeholder="Search">
+            <select name="filter" id="filter">
+                <option disabled selected hidden>Filter</option>
+                <option value="calories">Calories</option>
+                <option value="fat">Fat</option>
+                <option value="carbs">Carbs</option>
+                <option value="protein">Protein</option>
+            </select>
             <button id="close-modal-btn">&times;</button>
         </div>
         <div id="menu-container"></div>
